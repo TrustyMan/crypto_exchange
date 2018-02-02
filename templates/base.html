@@ -1,0 +1,264 @@
+<!DOCTYPE html> {% load static %}
+
+<html>
+
+<head>
+    <title>Hashcoin</title>
+    <meta charset="utf-8">
+    <!--[if IE]>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<![endif]-->
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/crypto_custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <!--[if lt IE 9]>
+		<script src="{% static 'js/vendor/html5shiv.min.js' %}"></script>
+		<script src="{% static 'js/vendor/respond.min.js' %}"></script>
+		<script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+	<![endif]-->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+
+<body>
+    <div class="preloader">
+        <div class="preloader_image"></div>
+    </div>
+    <div class=" bg-blue p-4 d-md-flex justify-content-around">
+        <div class="col-md-3  ">
+            <img src="{% static 'images/theme/Logo.png' %}" class="img-fluid">
+        </div>
+        <div class="col-md-3 d-flex flex-row justify-content-around">
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ request.user.first_name}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right nav-bg-dark" aria-labelledby="userMenu">
+                        <a class="dropdown-item" href="">Wallet</a>
+                        <a class="dropdown-item" href="">Transactions</a>
+                        <a class="dropdown-item" href="">Change password</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="">Log out</a>
+                    </div>
+                </li>
+            </ul>
+            {% else %}
+            <a class="nav-item nav-link" href="">
+                <span class="white-font bit-font">
+                    <i class="fa fa-user "> </i> LOGIN</span>
+            </a>
+            <a class="nav-item nav-link " href="">
+                <span class="white-font bit-font">
+                    <i class="fa fa-sign-in "> </i> SIGNUP</span>
+            </a>
+
+
+            {% endif %}
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg nav-darkblue crypto-nav sticky-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars" aria-hidden="true"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+            <div class="navbar-nav text-uppercase mr-auto">
+                <a class="nav-item nav-link active" href="">home</a>
+                <a class="nav-item nav-link" href="{% url 'coins:exchange' %}">Exchange</a>
+                {% if user.is_authenticated %}
+                    <a class="nav-item nav-link " href="">Wallet</a>
+                    <a class="nav-item nav-link " href="">Transactions</a>
+                {% endif %}
+
+                <!-- {% if  user.is_authenticated %}
+
+                <a class="nav-item nav-link" href="#">Logout</a>
+
+                {% else %}
+                <a class="nav-item nav-link" href="#">Signup</a>
+                <a class="nav-item nav-link " href="#">Login</a>
+                {% endif %} -->
+
+
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- section caraousel-->
+    <div class="col-12 pad0 slide-bg">
+
+        {% block carousel%} {% endblock carousel %}
+    </div>
+    {% block content_wallet %} {% endblock content_wallet %}
+    <!-- end caraousel -->
+    <div class="container-fluid">
+        <div class="row">
+            {% block content %} {% endblock content%}
+        </div>
+    </div>
+    <!-- section about bitcoin -->
+
+    <section class=" footer">
+        <div class=" bg-black p-5">
+            <div class="col-12 p-3">
+                <span>Access your Bitcoin Wallet securely</span>
+            </div>
+            <div class="col-12 p-3">
+                <span class="footer-bold sansthick">biT-Exchange on all your devices</span>
+            </div>
+            <div class="col-12 p-3">
+                <img class="img-fluid mt-1" src="{% static 'images/theme/appstore.png' %}">
+                <img class="img-fluid mt-1" src="{% static 'images/theme/playstore.png'%}">
+            </div>
+        </div>
+        <div class=" p-5 bg-navyblue">
+            <div class="row col-md-10 offset-md-1 text-left">
+
+                <div class="col-sm-6 col-md-3 p-3">
+                    <span class="footer-header">About Us</span>
+                    <div class="footer-header-line"></div>
+                    <ul class="mt-3">
+                        <li>
+                            <a href="#">Legal & Security</a>
+                        </li>
+                        <li>
+                            <a href="#">Help Centre</a>
+                        </li>
+                        <li>
+                            <a href="#">Terms of Use</a>
+                        </li>
+                        <li>
+                            <a href="#">Refund Policy</a>
+                        </li>
+                        <li>
+                            <a href="#">Press</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-md-3 p-3">
+                    <span class="footer-header">Services</span>
+                    <div class="footer-header-line"></div>
+                    <ul class="mt-3">
+                        <li>
+                            <a href="#">Buy Bitcoin</a>
+                        </li>
+                        <li>
+                            <a href="#">Buy Ethereum</a>
+                        </li>
+                        <li>
+                            <a href="#">Sell Bitcoins</a>
+                        </li>
+                        <li>
+                            <a href="#">Bitcoin Trading</a>
+                        </li>
+                        <li>
+                            <a href="#">Margin Trading</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-md-3 p-3">
+                    <span class="footer-header">Information</span>
+                    <div class="footer-header-line"></div>
+                    <ul class="mt-3">
+                        <li>
+                            <a href="#">Payment Options</a>
+                        </li>
+                        <li>
+                            <a href="#">Fee Schedule</a>
+                        </li>
+                        <li>
+                            <a href="#">Getting Started</a>
+                        </li>
+                        <li>
+                            <a href="#">Identity Verification Guide</a>
+                        </li>
+                        <li>
+                            <a href="#">Card Verification Guide</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-md-3 p-3">
+                    <span class="footer-header">Contact Us</span>
+                    <div class="footer-header-line"></div>
+                    <ul class="mt-3">
+                        <li>
+                            <a href="#">info@Coinzel.net
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">press@coinzel.net </a>
+                        </li>
+                        <li>
+                            <a href="#">support@coinzel.net</a>
+                        </li>
+                        <li>
+                            <a href="#">complaints@coinzel.net </a>
+                        </li>
+                        <li>
+                            <a href="#">+44 20 8133 5474</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+    </section>
+
+    <div class="p-3 p-sm-0 d-flex  justify-content-around align-items-center bg-lightblue">
+        <div class="col-12 col-md-4 mt-2">
+            <div class="col-12 col-sm-8 offset-sm-2  d-flex justify-content-around align-items-center p-2">
+                    <div class="fsc">
+                            <i class="fa fa-facebook p-2" aria-hidden="true"></i>
+                        </div>
+                        <div class="fsc">
+                            <i class="fa fa-twitter  p-2" aria-hidden="true"></i>
+                        </div>
+                        <div class="fsc">
+                            <i class="fa fa-linkedin p-2 " aria-hidden="true"></i>
+                        </div>
+                        <div class="fsc">
+                            <i class="fa fa-github  p-2" aria-hidden="true"></i>
+                        </div>
+            </div>
+                
+        </div>
+        <div class="col-12 col-md-4 mt-2 text-center">
+            <span class=" white-font sansthick">Copyright by biT-Exchange Ltd 2017.
+                </span>
+        </div>
+        <div class="col-12 col-md-4 mt-2 text-center">
+            <span class="margin-center"><img class="img-fluid"  src="{% static 'images/theme/bankicons.png' %}"></span>
+        </div>
+    </div>
+
+
+
+    <!-- script -->
+    <script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <script src="{% static 'js/custom_crypto.js' %}"></script>
+      {% block script %} {% endblock script %}
+
+</body>
+
+</html>

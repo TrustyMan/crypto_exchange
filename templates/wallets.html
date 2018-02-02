@@ -1,0 +1,57 @@
+{% extends 'base.html' %} {% load static %} {% load transaction_status %} {% block content %}
+<div class="page-header-dark col-12">
+	<h1 class="page-header-font-yellow">Wallets</h1>
+	<div class="breadcrumbs-dark">
+		<span>Home</span>
+		<span>/</span>
+		<a href="">
+			<span>Wallets</span>
+		</a>
+	</div>
+</div>
+<div class="col-10 offset-1 mt-5">
+	<div class="row">
+{% for obj in request.user.wallets.all %}
+			<!-- card -->
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3 p-3">
+				<div class="wallets">
+					<div class="col-12 text-center p-3">
+						<img src="{% static 'img/coins/'%}{{obj.name}}.png" class="img-100">
+						<h3>{{ obj.name }}</h3>
+					</div>
+					<div class="col-12 dont-break-out">
+						<label>Address:</label>
+						<div class="bg-grey">
+							<h5>{{obj.address}}</h5>
+						</div>
+					</div>
+					<div class="col-12 dont-break-out">
+						<label>Balance:</label>
+						<div class="bg-grey">
+							{% if obj.name == 'btc' %}
+							    <h5>{% get_bit_balance obj.address request.user.username %}</h5>
+							{% elif obj.name == 'eth' %}
+							    <h5>{% get_eth_balance obj.address %}</h5>
+                            {% elif obj.name == 'btg' %}
+							    <h5>{% get_btg_balance obj.address %}</h5>
+							{% elif obj.name == 'ltc' %}
+							    <h5>{% get_ltc_balance obj.address %}</h5>
+							{% else %}
+							<h5>0</h5>
+							{% endif %}
+						</div>
+					</div>
+					<!-- <div class="col-12 dont-break-out">
+						<label>Equivalent USD:</label>
+						<div class="bg-grey">
+							<h5>13,547.4000 USD</h5>
+						</div>
+					</div> -->
+				</div>
+			</div>
+			<!-- card-end -->
+			{% endfor %}
+	</div>
+</div>
+
+{% endblock %}

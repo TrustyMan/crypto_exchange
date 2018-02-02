@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% load transaction_status %} {% load static %} {% block content %}
+<section class="col-12">
+
+	<div class="table-responsive">
+		<table class="table table_template darklinks table-striped table-bordered table-hover" id="timetable">
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>User</th>
+					<th>From currency</th>
+					<th>To Currency</th>
+					<th>Amount</th>
+					<th>Transaction ID</th>
+					<th>Transaction From</th>
+					<th>Transaction To</th>
+				</tr>
+			</thead>
+			<tbody>
+
+					{% for obj in object_list %}
+				<tr>
+					<td>{% transaction_status obj.transaction_id %}</td>
+					<td>{{obj.user}}</td>
+					<td>{{obj.from_currency}}</td>
+					<td>{{obj.to_currency}}</td>
+					<td>{{obj.amount}}</td>
+					<td>{{obj.transaction_id}}</td>
+					<td>{{obj.transaction_from}}</td>
+					<td>{{obj.transaction_to}}</td>
+				</tr>
+				{% endfor %}
+
+			</tbody>
+		</table>
+	</div>
+
+</section>
+{% endblock content %}

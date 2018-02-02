@@ -1,0 +1,429 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+
+
+<section class="container-fluid">
+	<div class="row">
+		<div class="col-10 offset-1 dark-font d-flex flex-wrap align-content-around">
+			<div class="col-4 col-sm-3 col-md-2 p-2 p-sm-5">
+				<span>
+					<i class="fa fa-usd" aria-hidden="true"></i> 0.00</span>
+			</div>
+			<div class="col-4 col-sm-3 col-md-2  p-2 p-sm-5">
+				<span>
+					<i class="fa fa-eur" aria-hidden="true"></i> 0.00</span>
+			</div>
+			<div class="col-4 col-sm-3 col-md-2  p-2 p-sm-5">
+				<span>
+					<i class="fa fa-btc" aria-hidden="true"></i> 0.00</span>
+			</div>
+			<div class="col-12 col-sm-3 col-md-2  p-2 p-sm-5 ml-auto">
+				<a class="exhange-btn-back">Back</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="section-blue container-fluid">
+	<div class="p-1 p-md-5">
+
+		<script src="{% static 'js/chart.bundle.js' %}"></script>
+		<canvas id="myChart" class="canvas-style">
+		</canvas>
+		<div id="legend"></div>
+
+					<div id="content">
+   					       <div class="framework-container">
+                                <div class="example" onpagenavigation id="demo"></div>
+                            </div>
+                    </div>
+<div class="clearfix"></div>
+
+		
+
+		<div id='chartjsLegend' class='chartjsLegend col-md-2 d-flex flex-col align-items-center align-self-center'>
+			<div class="col-3">
+				<i class="fa fa-bitcoin"></i>
+			</div>
+			<div class="col-9">
+				<div class="col-12">13%</div>
+				<div class="col-12">
+					<span>Bitcoin</span>
+				</div>
+				<div class="col-12"></div>
+				<div class="col-12">$45678.098</div>
+			</div>
+		</div>
+
+		<script>
+			var ctx = document.getElementById("myChart");
+			var myChart = new Chart(ctx, {
+				type: 'doughnut',
+				data: {
+					labels: ["Bitcoin", "BitcoinCash", "BitcoinGold", "Ethereum", "Monero", "LiteCoin"],
+					datasets: [{
+						label: '# of Votes',
+						data: [12, 19, 3, 5, 2, 3],
+						backgroundColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)'
+						],
+						borderColor: [
+							'rgba(255,99,132,1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)'
+						],
+						borderWidth: 1
+					}]
+				},
+
+				options: {
+					legend: false,
+					legendCallback: function (chart) {
+						var ul = document.createElement('div');
+						var borderColor = chart.data.datasets[0].borderColor;
+						chart.data.labels.forEach(function (label, index) {
+							ul.innerHTML += `
+						  <div class="col-3">
+				<i class="fa fa-bitcoin"></i>
+			</div>
+			<div class="col-9">
+				<div class="col-12">13%</div>
+				<div class="col-12">
+					<span>Bitcoin</span>
+				</div>
+				<div class="col-12"></div>
+				<div class="col-12">$45678.098</div>
+			</div>
+
+							  <li>as
+								 <span style="background-color: ${borderColor[index]}"></span>
+								${label}
+							 </li>
+						  `; // ^ ES6 Template String
+						});
+						return ul.outerHTML;
+					}
+				}
+			});
+		</script>
+		<script>
+			document.getElementById('legend').innerHTML = myChart.generateLegend();
+		</script>
+
+	</div>
+
+
+    <div class="exchange-now">
+		<div class="container">
+	            <div class="row" style="margin:0px">
+	                <div class="col-sm-5 sync">
+	                    <img src="/static/img/sync.png" style="    position: absolute;
+	                        right: -16%;
+	                        top: 40%;">
+						<h2>Exchange</h2>
+						<select title="Select your surfboard" class="">
+							<option>Select...</option>
+							<option data-thumbnail="/static/images/coins/eth.png" title="/static/images/coins/eth.png">Chrome</option>
+							<option data-thumbnail="images/icon-firefox.png">Firefox</option>
+							<option data-thumbnail="/static/images/coins/eth.png">IE</option>
+							<option data-thumbnail="images/icon-opera.png">Opera</option>
+							<option data-thumbnail="images/icon-safari.png">Safari</option>
+						  </select>
+
+                        <a class="btn btn-default btn-select">
+			                <input type="hidden" class="btn-select-input"  name="" value="" />
+			                <span  class="btn-select-value" value="0" >BTC</span>
+			                <span class='btn-select-arrow fa fa-caret-down'></span>
+			                <ul id="convert_from" >
+			                    <li value="0" class="selected"><img src="/static/images/coins/bitcoin.png" width="40px" />BitCoin</li>
+								<li value="1"><img src="/static/images/coins/eth.png" width="40px" />Ethereum</li>
+								<li value="2"><img src="/static/images/coins/ltc.png" width="40px" />LiteCoin</li>
+								<li value="3"><img src="/static/images/coins/xmr.png" width="40px" />Monero</li>
+								<li value="4"><img src="/static/images/coins/bch.png" width="40px" />BitCoinCash</li>
+								<li value="5"><img src="/static/images/coins/btg.png" width="40px" />BitCoinGold</li>
+			                </ul>
+			            </a>
+
+
+	                    <div class="row" style="       margin: 0px;
+	                        margin-top: 20px;
+	                        height: 40px;
+	                        background: #1c334d;
+	                        padding-top: 5px;
+	                        color: #fff;
+	                        border-bottom: 1px solid #0094cc;
+	                        border-top-left-radius: 5px;
+	                        border-top-right-radius: 5px;
+                            
+	                        ">
+	                        <div class="col-sm-6">
+	                           <input type="text" value="1" id="convert_amount" class="input-bit" />
+	                        </div>
+	                        <div class="col-sm-6" align="right">
+	                            <span class="from_cur" />
+	                        </div>
+	                    </div>
+	                    <div class="row" style="   margin: 0px;
+	                        /* margin-top: 10px; */
+	                        height: 40px;
+	                        background: #1c334d;
+	                        padding-top: 5px;
+	                        color: #fff;
+	                        border-bottom-left-radius: 5px;
+	                        border-bottom-right-radius: 5px;">
+	                        <div class="col-sm-6">
+	                            0.075
+	                        </div>
+	                        <div class="col-sm-6" align="right">
+	                            USD
+	                        </div>
+	                    </div>
+	                    <div class="row" style="
+	                        margin: 0px;
+	                        margin-top: 1em;
+	                        background: #1c334d;
+	                        border-radius: 5px;
+	                        text-align: right;
+	                        padding: 3px;
+	                        position: relative;
+	                        display: block;
+	                        ">
+	                        <h4 style="
+	                            margin-bottom: 0px;
+	                            display: block;
+	                            padding-right: 2.8em;
+	                            ">You are exchange</h4>
+	                        <p style="
+	                            display: block;
+	                            color: #fff;
+	                            margin-bottom: 0px;
+	                            padding-top: 0px;
+	                            padding-right: 4em;
+	                            "><span class="from_cur" /></p>
+	                        <p style="
+	                            display: block;
+	                            color: #fff;
+	                            padding-top: 0px;
+	                            padding-right: 4em;
+	                            margin-bottom: 5px;
+	                            ">4.75 USD</p>
+	                        <img id="from_cur_img" src="/static/img/coins/BitCoin.png" style="
+	                            position: absolute;
+	                            top: 22%;
+	                            right: 15px;
+	                            width: 10%;
+	                            ">
+	                    </div>
+	                </div>
+	                <div class="col-sm-5 offset-sm-1">
+	                    <img src="/static/img/right-arrow.png" style="     position: absolute;
+	                        left: -14%;
+	                        bottom: 6%;">
+	                    <h2>Receive</h2>
+	                    
+						<a class="btn btn-default btn-select">
+			                <input type="hidden" class="btn-select-input" id="" name="" value="" />
+			                <span class="btn-select-value" value="2" >Litecoin</span>
+			                <span class='btn-select-arrow fa fa-caret-down'></span>
+			                <ul id="convert_to">
+			                    <li value="0"><img src="/static/images/coins/bitcoin.png" width="40px" />BitCoin</li>
+								<li value="1"><img src="/static/images/coins/eth.png" width="40px" />Ethereum</li>
+								<li value="2" class="selected"><img src="/static/images/coins/ltc.png" width="40px" />LiteCoin</li>
+								<li value="3"><img src="/static/images/coins/xmr.png" width="40px" />Monero</li>
+								<li value="4"><img src="/static/images/coins/bch.png" width="40px" />BitCoinCash</li>
+								<li value="5"><img src="/static/images/coins/btg.png" width="40px" />BitCoinGold</li>
+			                </ul>
+			            </a>
+	                    <div class="row" style="       margin: 0px;
+	                        margin-top: 20px;
+	                        height: 40px;
+	                        background: #1c334d;
+	                        padding-top: 5px;
+	                        color: #fff;
+	                        border-bottom: 1px solid #0094cc;
+	                        border-top-left-radius: 5px;
+	                        border-top-right-radius: 5px;">
+	                        <div class="col-sm-6">
+	                            <input type="text" disabled id="converted_amount" class="input-bit" />
+	                        </div>
+	                        <div class="col-sm-6" align="right">
+	                            <span class="to_cur" />
+	                        </div>
+	                    </div>
+	                    <div class="row" style="   margin: 0px;
+	                        /* margin-top: 10px; */
+	                        height: 40px;
+	                        background: #1c334d;
+	                        padding-top: 5px;
+	                        color: #fff;
+	                        border-bottom-left-radius: 5px;
+	                        border-bottom-right-radius: 5px;">
+	                        <div class="col-sm-6">
+	                            0.075
+	                        </div>
+	                        <div class="col-sm-6" align="right">
+	                            USD
+	                        </div>
+	                    </div>
+	                  <div class="row" style="
+	                        margin: 0px;
+	                        margin-top: 1em;
+	                        background: #1c334d;
+	                        border-radius: 5px;
+	                        text-align: left;
+	                        padding: 3px;
+	                        position: relative;
+	                        display: block;
+	                        ">
+	                        <h4 style="
+	                            margin-bottom: 0px;
+	                            display: block;
+	                            padding-left: 2.8em;
+	                            ">You are exchange</h4>
+	                        <p style="
+	                            display: block;
+	                            color: #fff;
+	                            margin-bottom: 0px;
+	                            padding-top: 0px;
+	                            padding-left: 4em;
+	                            "><span class="to_cur" /></p>
+	                        <p style="
+	                            display: block;
+	                            color: #fff;
+	                            padding-top: 0px;
+	                            padding-left: 4em;
+	                            margin-bottom: 5px;
+	                            ">4.75 USD</p>
+	                        <img id="to_cur_img" src="/static/img/coins/LiteCoin.png" style="
+	                            position: absolute;
+	                            top: 22%;
+	                            left: 11px;
+	                            width: 10%;
+	                            ">
+	                    </div>
+	                </div>
+	            </div>
+	            <div align="center">
+	                <button class="btn btn-exchange" type="submit" onclick="window.location=''">Exchange now</button>
+	            </div>
+	        </div>
+	    </div>
+</section>
+
+
+{% endblock %} {% block script %}
+<script type="text/javascript">
+	convertWidget1($('#convert_to').find("li.selected").val());
+	$('#convert_from li').click(function (e) {
+		convertWidget2(e.target.value);
+
+	})
+	$('#convert_to li').click(function (e) {
+         convertWidget1(e.target.value);
+    })
+
+	$('#convert_amount').keyup(function () {
+		convertWidget1($('#convert_to').find("li.selected").val());
+
+
+	})
+    
+	function convertWidget1(convert_to) {
+		convert_from = $('#convert_from').find("li.selected").val()
+		amount = $('#convert_amount').val()
+		$.ajax({
+			type: "POST",
+			url: "",
+			data: {
+				'from': convert_from,
+				'to': convert_to,
+				'amount': amount,
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+			success: function (data) {
+				$("#converted_amount").attr({
+					'value': data.result
+				});
+				from_text = $('#convert_from').find("li.selected").text()
+				to_text = $('#convert_to').find("li.selected").text()
+				$(".from_cur").text(from_text)
+				$(".to_cur").text(to_text)
+				$("#from_cur_img").attr({"src":"/static/img/coins/"+from_text+".png"})
+				$("#to_cur_img").attr({"src":"/static/img/coins/"+to_text+".png"})
+				
+			}
+		})
+	}
+	function convertWidget2(convert_from) {
+		convert_to = $('#convert_to').find("li.selected").val()
+		amount = $('#convert_amount').val()
+		$.ajax({
+			type: "POST",
+			url: "",
+			data: {
+				'from': convert_from,
+				'to': convert_to,
+				'amount': amount,
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+			success: function (data) {
+				$("#converted_amount").attr({
+					'value': data.result
+				});
+				from_text = $('#convert_from').find("li.selected").text()
+				to_text = $('#convert_to').find("li.selected").text()
+				$(".from_cur").text(from_text)
+				$(".to_cur").text(to_text)
+				$("#from_cur_img").attr({"src":"/static/img/coins/"+from_text+".png"})
+				$("#to_cur_img").attr({"src":"/static/img/coins/"+to_text+".png"})
+				
+			}
+		})
+	}
+</script> 
+<script>
+    $(".example").piechart([
+    ["Country", "M inhabitants"],
+    ["China", 1360, 'blue'],
+    ["India", 1234],
+    ["USA", 316],
+    ["Indonesia", 237],
+    ["Brazil", 100],
+    ["keniya", 100],
+    ]);
+    $(".sector-s").trigger("click")
+</script>
+
+<script>
+                        $('.owl-carousel').owlCarousel({
+                          loop: true,
+                          margin: 10,
+                          responsiveClass: true,
+                          responsive: {
+                            0: {
+                              items: 1,
+                              nav: true
+                            },
+                            600: {
+                              items: 3,
+                              nav: false
+                            },
+                            1000: {
+                              items: 8,
+                              nav: true,
+                              loop: false
+                            }
+                          }
+                        })
+                    </script>
+
+{% endblock %}  
