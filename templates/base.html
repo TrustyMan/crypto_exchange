@@ -32,9 +32,9 @@
     <div class="preloader">
         <div class="preloader_image"></div>
     </div>
-    <div class=" bg-blue p-4 d-md-flex justify-content-around">
+    <div class="white-font bg-blue p-3 d-md-flex justify-content-around">
         <div class="col-md-3  ">
-            <span style="font-weight:600; font-size:24px">Psalm.io</span>
+            <span class="logo-font d-flex align-items-center"><img src="/static/images/theme/Logo.png" class=" logo img-fluid"> &nbsp; Psalm.io</span>
         </div>
         <div class="col-md-3 d-flex flex-row justify-content-around">
             {% if user.is_authenticated %}
@@ -43,7 +43,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ request.user.first_name}}
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right nav-bg-dark" aria-labelledby="userMenu">
+                    <div class="dropdown-menu dropdown-menu-right " aria-labelledby="userMenu">
                         <a class="dropdown-item" href="">Wallet</a>
                         <a class="dropdown-item" href="">Transactions</a>
                         <a class="dropdown-item" href="">Change password</a>
@@ -96,10 +96,9 @@
     </nav>
 
     <!-- section caraousel-->
-    <div class="col-12 pad0 slide-bg">
 
         {% block carousel%} {% endblock carousel %}
-    </div>
+
     {% block content_wallet %} {% endblock content_wallet %}
     <!-- end caraousel -->
     <div class="container-fluid">

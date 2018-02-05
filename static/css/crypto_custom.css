@@ -33,7 +33,7 @@
 
 body {
     font-family: "Source Sans Pro";
-    color: #fff;
+    color: rgb(150, 150, 150);
     font-stretch: semi-condensed;
 }
 
@@ -530,8 +530,11 @@ select:-moz-focusring {}
 
 .logo {
     font-size: 16pt;
+    width: 70px;
+}
+.logo-font {
+    font-size: 40px;
     font-weight: 600;
-    color: white;
 }
 
 .footer input {

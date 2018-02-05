@@ -30,7 +30,12 @@
 	font-family: "Source Sans Pro";
 	text-align: right;
 }
-
+.dropdown-menu{
+	z-index: 1030;
+}
+.nav-link a:hover, a:focus, a:active {
+    color: #e3ba65;
+}
 
 /***************fonts******************/
 
@@ -455,7 +460,7 @@ a:hover,
 a:active,
 a:focus {
 	outline: 0;
-	color: #1783ab;
+	color: #e3ba65;
 	text-decoration: none;
 }
 
