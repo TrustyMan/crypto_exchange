@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.authentication',
 ]
 
 MIDDLEWARE = [
@@ -106,6 +107,28 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+AUTH_USER_MODEL = 'authentication.User'
+
+AUTHENTICATION_BACKENDS = (
+    ('django.contrib.auth.backends.ModelBackend'),
+)
+
+LOGIN_URL = '/auth/login'
+
+LOGIN_REDIRECT_URL = '/welcome/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_PORT = 587
+
+EMAIL_HOST_USER = 'dev@virtualwallets.com.au'
+EMAIL_HOST_PASSWORD = 'QNuNnGH(5LL"\96_'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'dev@virtualwallets.com.au'
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -127,7 +150,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")

@@ -1,0 +1,101 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="page-header-dark col-12">
+	<h1 class="page-header-font-yellow">Signup</h1>
+	<div class="breadcrumbs-dark">
+		<span>Home</span>
+		<span>/</span>
+		<a href="">
+			<span>Signup</span>
+		</a>
+	</div>
+</div>
+
+<section class="col-12 mt-5 p-5">
+	<div class="container text-center">
+		<div class="row">
+			<form name="signup-form" class="contact-form row columns_padding_10" method="post" action="./">
+				{% csrf_token %}
+				<div class="col-sm-6 offset-sm-3">
+					<div class="form-group bottommargin_0">
+				        <div id="form-error" style="color: red;">{{ form.non_field_errors }}</div>
+				    </div>
+				</div>
+				<div class="col-sm-6 offset-sm-3">
+					<div class="form-group bottommargin_0">
+						<input type="text" aria-required="true" size="30" value="" name="first_name" id="id_first_name" class="form-control signup-input"
+						    placeholder="First Name">
+						<span>
+							<p> {{ form.errors.first_name }}</p>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-6 offset-sm-3">
+					<div class="form-group bottommargin_0">
+						<input type="text" aria-required="true" size="30" value="" name="last_name" id="id_last_name" class="form-control signup-input"
+						    placeholder="Last Name">
+						<span>
+							<p> {{ form.errors.last_name }}</p>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-6 offset-sm-3">
+					<div class="form-group bottommargin_0">
+						<input type="text" size="30" value="" name="username" id="id_username" class="form-control signup-input" placeholder="Username">
+						<span>
+							<p> {{ form.errors.username }}</p>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-6 offset-sm-3">
+					<div class="form-group bottommargin_0">
+						<input type="text" size="30" value="" name="email" id="id_email" class="form-control signup-input" placeholder="Email">
+						<span>
+							<p> {{ form.errors.email }}</p>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-6 offset-sm-3">
+					<div class="form-group bottommargin_0">
+						<input type="password" name="password1" required="" id="id_password1" class="form-control signup-input" placeholder="Password">
+						<span>
+							<p> {{ form.errors.password1 }}</p>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-6 offset-sm-3">
+					<div class="form-group bottommargin_0">
+						<input type="password" name="password2" required="" id="id_password2" class="form-control signup-input"
+						    placeholder="Confirm Password">
+						<span>
+							<p> {{ form.errors.password2 }}</p>
+						</span>
+					</div>
+				</div>
+				<div class="col-sm-6 offset-sm-3">
+					<div class="form-group bottommargin_0">
+				        <div class="g-recaptcha" data-sitekey="6LdEcUIUAAAAAOdzadXa7dD9wVAs-g-AtegbLlM0"></div>
+				    </div>
+				</div>
+				<div class="col-sm-12 text-center">
+						<button type="button" name="contact_submit" onclick="validateForm()" class="btn  btn-secondary exchange-next">Signup</button>
+			
+				</div>
+			</form>
+		</div>
+		<a href="{% url 'login' %}" class="mt-5">Already exist? Login</a>
+		<!--.row -->
+	</div>
+	<!--.container -->
+</section>
+<script type="text/javascript">
+function validateForm() {	
+    var recaptcha = document.forms["signup-form"]["g-recaptcha-response"].value;
+    if (recaptcha == "") {
+        $("#form-error").text("Recaptcha Failed");
+    }
+    else{
+    	$("form").submit();
+    }
+}
+</script>
+{% endblock %}
