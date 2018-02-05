@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -81,11 +82,11 @@ WSGI_APPLICATION = 'psalm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'psalm',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': os.environ['RDB_NAME'],
+        'USER': os.environ['RDB_USER'],
+        'PASSWORD': os.environ['RDB_PASSWORD'],
+        'HOST': os.environ['RDB_HOST'],
+        'PORT': os.environ['RDB_PORT'],
     }
 }
 
@@ -120,13 +121,13 @@ LOGIN_REDIRECT_URL = '/welcome/'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.office365.com'
+EMAIL_HOST = os.environ['EMAIL_HOST']
 EMAIL_PORT = 587
 
-EMAIL_HOST_USER = 'dev@virtualwallets.com.au'
-EMAIL_HOST_PASSWORD = 'QNuNnGH(5LL"\96_'
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'dev@virtualwallets.com.au'
+DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
 
 
 
@@ -153,6 +154,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+STATIC_ROOT = 'static'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 MEDIA_URL = '/media/'

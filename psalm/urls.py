@@ -24,7 +24,7 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include('apps.authentication.urls')),
+    path('auth/', include('apps.authentication.urls', namespace='auth')),
     path('', include('apps.coins.urls', namespace='apps.coins')),
     path('welcome/', login_required(TemplateView.as_view(template_name='welcome.html')), name='welcome'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL,  document_root=settings.STATIC_ROOT)
