@@ -22,9 +22,11 @@ from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
 from django.contrib.auth.decorators import login_required
 
+from apps.authentication.views import WelcomeView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('apps.authentication.urls', namespace='auth')),
+    path('welcome/', WelcomeView.as_view(), name='welcome'),
     path('', include('apps.coins.urls', namespace='apps.coins')),
-    path('welcome/', login_required(TemplateView.as_view(template_name='welcome.html')), name='welcome'),
 ] + static(settings.MEDIA_URL,  document_root=settings.STATIC_ROOT)

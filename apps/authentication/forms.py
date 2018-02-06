@@ -19,7 +19,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = (UsernameField(), "email", "first_name", "last_name")
+        fields = (UsernameField(), "email", "first_name", "last_name", "two_factor_status")
     
     def clean_username(self):
         username = self.cleaned_data.get('username', '').lower()

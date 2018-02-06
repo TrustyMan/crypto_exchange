@@ -189,3 +189,12 @@ class UserProfileUpdate(UpdateView):
 
     def get_object(self):
         return self.request.user.userprofile
+
+class WelcomeView(View):
+    template_name = 'welcome.html'
+
+    def get(self,request,*args,**kwargs):
+        if self.request.user.two_factor_status:
+            return redirect(reverse('auth:otp'))
+        else:
+            return render(request,self.template_name)

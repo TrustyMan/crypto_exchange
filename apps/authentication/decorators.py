@@ -6,7 +6,8 @@ from django.shortcuts import redirect, render_to_response, render
 
 def check_otp(function):
     def wrap(request, *args, **kwargs):
-        if request.user.is_authenticated() and request.session.get('otp-verified'):
+        if request.user.is_authenticated() and request.session.get('otp-verified') and\
+          self.request.user.two_factor_status:
             return function(request, *args, **kwargs)
         else:
             return redirect(reverse('otp'))

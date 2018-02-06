@@ -120,7 +120,7 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = '/auth/login'
 
-LOGIN_REDIRECT_URL = '/auth/otp/'
+LOGIN_REDIRECT_URL = '/welcome/'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
