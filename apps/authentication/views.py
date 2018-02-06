@@ -37,7 +37,7 @@ class RegistrationView(FormView):
             new_user.is_active = False
             new_user.save()
             token = account_activation_token.make_token(new_user)
-            confirm_url = self.request.scheme+"://"+self.request.META['HTTP_HOST']+\
+            confirm_url = self.request.scheme+"://"+self.request.META['HTTP_HOST']+".io"+\
             reverse('auth:email_confirmation', kwargs={'uidb64': urlsafe_base64_encode(force_bytes(new_user.pk)).decode("utf-8"),'token': token})
             html_message = "Click the link to verify email address <a href='"+confirm_url+"'>Verify</a>"
             try:
@@ -55,6 +55,10 @@ class RegistrationView(FormView):
             return redirect(reverse('signup'))
 
 class TwoFactorAuthenticationView(TemplateView):
+    """
+    Enabling 2FA.
+    This will set a otp-verified in session when user enters the correct otp.
+    """
     template_name = "authentication/otp.html"
 
     def dispatch(self,request,*args,**kwargs):
