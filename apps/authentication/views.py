@@ -3,31 +3,24 @@ import random
 from twilio.rest import Client
 
 from django.utils import six
-from django.urls import reverse
 from django.conf import settings
+from django.contrib import messages
 from django.core.mail import send_mail
+from django.template import RequestContext
+from django.urls import reverse, reverse_lazy
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.module_loading import import_string
-from django.views.generic.base import TemplateView, View
+from django.utils.encoding import force_bytes, force_text
 from django.shortcuts import redirect, render_to_response, render
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.views.decorators.debug import sensitive_post_parameters
-
-
-from django.template import RequestContext
-from django.shortcuts import get_object_or_404
-from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from apps.authentication.forms import ResendActivationForm, RegistrationForm
-from django.views.generic.edit import FormView, UpdateView
-from django.views.generic import DetailView
-from django.urls import reverse, reverse_lazy
-from django.template import RequestContext
-from django.contrib import messages
+from django.views.generic import TemplateView, View, FormView, UpdateView, DetailView
+
 
 from apps.authentication.models import User, UserProfile
-from .forms import UserProfileForm
-
+from apps.authentication.forms import ResendActivationForm, RegistrationForm, UserProfileForm
 
 class RegistrationView(FormView):
     """
