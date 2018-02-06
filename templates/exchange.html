@@ -28,10 +28,6 @@
 <section class="section-blue container-fluid white-font">
 	<div class="p-1 p-md-5">
 
-		<script src="{% static 'js/chart.bundle.js' %}"></script>
-		<canvas id="myChart" class="canvas-style">
-		</canvas>
-		<div id="legend"></div>
 
 		<div id="content">
 			<div class="framework-container">
@@ -42,91 +38,16 @@
 
 
 
-		<div id='chartjsLegend' class='chartjsLegend col-md-2 d-flex flex-col align-items-center align-self-center'>
-			<div class="col-3">
-				<i class="fa fa-bitcoin"></i>
-			</div>
-			<div class="col-9">
-				<div class="col-12">13%</div>
-				<div class="col-12">
-					<span>Bitcoin</span>
-				</div>
-				<div class="col-12"></div>
-				<div class="col-12">$45678.098</div>
-			</div>
-		</div>
 
-		<script>
-			var ctx = document.getElementById("myChart");
-			var myChart = new Chart(ctx, {
-				type: 'doughnut',
-				data: {
-					labels: ["Bitcoin", "BitcoinCash", "BitcoinGold", "Ethereum", "Monero", "LiteCoin"],
-					datasets: [{
-						label: '# of Votes',
-						data: [12, 19, 3, 5, 2, 3],
-						backgroundColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)',
-							'rgba(255, 159, 64, 1)'
-						],
-						borderColor: [
-							'rgba(255,99,132,1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)',
-							'rgba(255, 159, 64, 1)'
-						],
-						borderWidth: 1
-					}]
-				},
-
-				options: {
-					legend: false,
-					legendCallback: function (chart) {
-						var ul = document.createElement('div');
-						var borderColor = chart.data.datasets[0].borderColor;
-						chart.data.labels.forEach(function (label, index) {
-							ul.innerHTML +=
-								`
-						  <div class="col-3">
-				<i class="fa fa-bitcoin"></i>
-			</div>
-			<div class="col-9">
-				<div class="col-12">13%</div>
-				<div class="col-12">
-					<span>Bitcoin</span>
-				</div>
-				<div class="col-12"></div>
-				<div class="col-12">$45678.098</div>
-			</div>
-
-							  <li>as
-								 <span style="background-color: ${borderColor[index]}"></span>
-								${label}
-							 </li>
-						  `; // ^ ES6 Template String
-						});
-						return ul.outerHTML;
-					}
-				}
-			});
-		</script>
-		<script>
-			document.getElementById('legend').innerHTML = myChart.generateLegend();
-		</script>
 
 	</div>
+
 
 
 	<div class="exchange-now">
 		<div class="container ">
 			<div class="row" style="margin:0px">
-				<div class="col-sm-5 sync">
+				<div class="col-md-5 sync">
 					<h2>Exchange</h2>
 
 					<a class="btn btn-default btn-select">
@@ -166,28 +87,12 @@
 							USD
 						</div>
 					</div>
-					<div class="row bit-exchange-value-left">
-						<h4 >You are exchanging</h4>
-						<p >
-							<span class="from_cur" />
-						</p>
-						<p >4.75 USD</p>
-						<img id="from_cur_img" src="/static/img/coins/BitCoin.png" >
-					</div>
 				</div>
-				<div class="col-sm-2 text-center d-flex flex-column align-content-between">
-					<div class="col-6 text-center  align-items-center">
-						<img src="/static/img/sync.png" >
-
-					</div>
-					<div class="col-6 text-center  align-items-center">
-						<img src="/static/img/right-arrow.png"  class="">
-
-					</div>
-
-
+				<div class="col-md-2 text-center d-flex align-items-center justify-content-center p-5">
+					<img src="/static/img/sync.png">
 				</div>
-				<div class="col-sm-5 ">
+
+				<div class="col-md-5 ">
 					<h2>Receive</h2>
 
 					<a class="btn btn-default btn-select">
@@ -209,15 +114,7 @@
 								<img src="/static/images/coins/btg.png" width="40px" />BitCoinGold</li>
 						</ul>
 					</a>
-					<div class="row" style="       margin: 0px;
-	                        margin-top: 20px;
-	                        height: 40px;
-	                        background: #1c334d;
-	                        padding-top: 5px;
-	                        color: #fff;
-	                        border-bottom: 1px solid #0094cc;
-	                        border-top-left-radius: 5px;
-	                        border-top-right-radius: 5px;">
+					<div class="row btn-exchange-input-box-top">
 						<div class="col-sm-6">
 							<input type="text" disabled id="converted_amount" class="input-bit" />
 						</div>
@@ -225,63 +122,65 @@
 							<span class="to_cur" />
 						</div>
 					</div>
-					<div class="row" style="   margin: 0px;
-	                        /* margin-top: 10px; */
-	                        height: 40px;
-	                        background: #1c334d;
-	                        padding-top: 5px;
-	                        color: #fff;
-	                        border-bottom-left-radius: 5px;
-	                        border-bottom-right-radius: 5px;">
-						<div class="col-sm-6">
+					<div class="row btn-exchange-input-box-bottom">
+						<div class="col-6">
 							0.075
 						</div>
-						<div class="col-sm-6" align="right">
+						<div class="col-6" align="right">
 							USD
 						</div>
 					</div>
-					<div class="row" style="
-	                        margin: 0px;
-	                        margin-top: 1em;
-	                        background: #1c334d;
-	                        border-radius: 5px;
-	                        text-align: left;
-	                        padding: 3px;
-	                        position: relative;
-	                        display: block;
-	                        ">
-						<h4 style="
-	                            margin-bottom: 0px;
-	                            display: block;
-	                            padding-left: 2.8em;
-	                            ">You are exchange</h4>
-						<p style="
-	                            display: block;
-	                            color: #fff;
-	                            margin-bottom: 0px;
-	                            padding-top: 0px;
-	                            padding-left: 4em;
-	                            ">
-							<span class="to_cur" />
-						</p>
-						<p style="
-	                            display: block;
-	                            color: #fff;
-	                            padding-top: 0px;
-	                            padding-left: 4em;
-	                            margin-bottom: 5px;
-	                            ">4.75 USD</p>
-						<img id="to_cur_img" src="/static/img/coins/LiteCoin.png" style="
-	                            position: absolute;
-	                            top: 22%;
-	                            left: 11px;
-	                            width: 10%;
-	                            ">
+				</div>
+
+
+
+				<div class="col-md-5 ">
+					<div class="bit-exchange-value-left">
+						<div class="row">
+
+							<div class="col-9 float-right">
+								<h4>You are exchanging</h4>
+								<p>
+									<span class="from_cur" />
+								</p>
+								<p>4.75 USD</p>
+							</div>
+
+							<div class="col-3 d-flex align-items-center ">
+								<img id="from_cur_img" src="/static/img/coins/BitCoin.png" class="img-fluid">
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 text-center d-flex align-items-center justify-content-center p-5">
+					<img src="/static/img/right-arrow.png">
+				</div>
+
+
+
+				<div class="col-md-5 ">
+					<div class="bit-exchange-value-right">
+						<div class="row">
+
+							<div class="col-3 d-flex align-items-center ">
+								<img id="from_cur_img" src="/static/img/coins/LiteCoin.png" class="img-fluid">
+							</div>
+							<div class="col-9 float-left">
+								<h4>You are receiving</h4>
+								<p>
+									<span class="from_cur" />
+								</p>
+								<p>4.75 USD</p>
+							</div>
+
+
+						</div>
 					</div>
 				</div>
 			</div>
 			<div align="center">
-				<button class="btn btn-exchange" type="submit" onclick="window.location=''">Exchange now</button>
+				<button class="btn btn-exchange mb-3" type="submit" onclick="window.location=''">Exchange now</button>
 			</div>
 		</div>
 	</div>
