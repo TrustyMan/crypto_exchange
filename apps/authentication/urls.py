@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.urls import reverse, reverse_lazy
-from apps.authentication.views import RegistrationView, ConfirmSignUpView
+from apps.authentication.views import RegistrationView, ConfirmSignUpView, TwoFactorAuthenticationView
 
 app_name = 'auth'
 urlpatterns = [
@@ -23,4 +23,6 @@ urlpatterns = [
         template_name='authentication/password_change_form.html', success_url='done'), name='password_change'),
     url(r'^password_change/done/$',
         auth_views.PasswordChangeDoneView.as_view(template_name='authentication/password_change_done.html'), name='password_change_done'),
+    url(r'otp/$',TwoFactorAuthenticationView.as_view(), name='otp'),
+
 ]

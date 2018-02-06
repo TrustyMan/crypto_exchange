@@ -26,7 +26,10 @@ SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 SECRET_KEY = '-r-js1vhi*br(*u+@&@64=io0rtn2n@xo%ir5xc37hqztpe%*9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.environ.get('DEBUG'):
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,11 +85,11 @@ WSGI_APPLICATION = 'psalm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['RDB_NAME'],
-        'USER': os.environ['RDB_USER'],
-        'PASSWORD': os.environ['RDB_PASSWORD'],
-        'HOST': os.environ['RDB_HOST'],
-        'PORT': os.environ['RDB_PORT'],
+        'NAME': os.environ.get('RDB_NAME'),
+        'USER': os.environ.get('RDB_USER'),
+        'PASSWORD': os.environ.get('RDB_PASSWORD'),
+        'HOST': os.environ.get('RDB_HOST'),
+        'PORT': os.environ.get('RDB_PORT'),
     }
 }
 
@@ -117,19 +120,21 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = '/auth/login'
 
-LOGIN_REDIRECT_URL = '/welcome/'
+LOGIN_REDIRECT_URL = '/auth/otp/'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_PORT = 587
 
-EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
-
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
+TWILIO_FROM_NUMBER = os.environ.get('TWILIO_FROM_NUMBER')
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -150,11 +155,13 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),
+    ]
+else:
+    STATIC_ROOT = 'static'
 
-STATIC_ROOT = 'static'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 MEDIA_URL = '/media/'
