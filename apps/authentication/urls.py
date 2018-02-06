@@ -1,28 +1,32 @@
-from django.conf.urls import url
+from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.urls import reverse, reverse_lazy
 from apps.authentication.views import RegistrationView, ConfirmSignUpView, TwoFactorAuthenticationView
-
+from apps.authentication.views import (RegistrationView, ConfirmSignUpView, UserProfileFormView,
+                                       UserProfileView, UserProfileUpdate)
 app_name = 'auth'
 urlpatterns = [
-    url(r'^signup/', RegistrationView.as_view(), name='signup'),
-    url(r'^login/$', auth_views.LoginView.as_view(template_name='authentication/login.html'),
-        name='login'),
-    url(r'^logout/$', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
-    url(r'email-confirmation/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', ConfirmSignUpView.as_view(
+    path('signup/', RegistrationView.as_view(), name='signup'),
+    path('login/', auth_views.LoginView.as_view(template_name='authentication/login.html'),
+         name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    path('profile/', UserProfileFormView.as_view(), name='userprofile'),
+    path('view_profile/', UserProfileView.as_view(), name='userprofileview'),
+    path('update_profile/', UserProfileUpdate.as_view(), name='userprofileupdate'),
+    path('email-confirmation/<uidb64>/<token>/', ConfirmSignUpView.as_view(
     ), name="email_confirmation"),
-    url(r'^password_reset/$', auth_views.PasswordResetView.as_view(template_name='authentication/password_reset_confirm.html',
-                                                                   email_template_name='authentication/password_reset_email.html', success_url='done'), name='password_reset'),
-    url(r'^password_reset/done/$', auth_views.PasswordResetDoneView.as_view(
+    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='authentication/password_reset_confirm.html',
+                                                                 email_template_name='authentication/password_reset_email.html', success_url='done'), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(
         template_name='authentication/password_reset_done.html'), name='password_reset_done'),
-    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    url(r'^reset/done/$', auth_views.PasswordResetCompleteView.as_view(),
-        name='password_reset_complete'),
-    url(r'^password_change/$', auth_views.PasswordChangeView.as_view(
+    path('reset/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(),
+         name='password_reset_complete'),
+    path('password_change/', auth_views.PasswordChangeView.as_view(
         template_name='authentication/password_change_form.html', success_url='done'), name='password_change'),
-    url(r'^password_change/done/$',
-        auth_views.PasswordChangeDoneView.as_view(template_name='authentication/password_change_done.html'), name='password_change_done'),
-    url(r'otp/$',TwoFactorAuthenticationView.as_view(), name='otp'),
+    path('password_change/done/',
+         auth_views.PasswordChangeDoneView.as_view(template_name='authentication/password_change_done.html'), name='password_change_done'),
+    path('otp/', TwoFactorAuthenticationView.as_view(), name='otp'),
 
 ]

@@ -6,7 +6,6 @@ from django.utils import six
 from django.urls import reverse
 from django.conf import settings
 from django.core.mail import send_mail
-from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
 from django.utils.module_loading import import_string
 from django.views.generic.base import TemplateView, View
@@ -19,9 +18,16 @@ from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
-from apps.authentication.models import User
 from apps.authentication.forms import ResendActivationForm, RegistrationForm
+from django.views.generic.edit import FormView, UpdateView
+from django.views.generic import DetailView
+from django.urls import reverse, reverse_lazy
+from django.template import RequestContext
+from django.contrib import messages
+
+from apps.authentication.models import User, UserProfile
+from .forms import UserProfileForm
+
 
 class RegistrationView(FormView):
     """
@@ -43,12 +49,12 @@ class RegistrationView(FormView):
             html_message = "Click the link to verify email address <a href='"+confirm_url+"'>Verify</a>"
             try:
                 send_mail('Confrim Registration',
-                    '',
-                    settings.DEFAULT_FROM_EMAIL,
-                    [new_user.email],
-                    html_message = html_message,
-                    fail_silently=False
-                    )
+                          '',
+                          settings.DEFAULT_FROM_EMAIL,
+                          [new_user.email],
+                          html_message=html_message,
+                          fail_silently=False
+                          )
             except:
                 pass
             return render_to_response('authentication/success.html')
@@ -110,10 +116,13 @@ class TwoFactorAuthenticationView(TemplateView):
 
 class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
     """ Overriding default Password reset token generator for email confirmation"""
+
     def _make_hash_value(self, user, timestamp):
-        return (six.text_type(user.pk) + six.text_type(timestamp)) +  six.text_type(user.is_active)
+        return (six.text_type(user.pk) + six.text_type(timestamp)) + six.text_type(user.is_active)
+
 
 account_activation_token = AccountActivationTokenGenerator()
+
 
 class ConfirmSignUpView(View):
     """ Confirming sign up via link provided in email"""
@@ -121,7 +130,7 @@ class ConfirmSignUpView(View):
 
     def get(self, request, *args, **kwargs):
         """ Ckecking token and conforming account activation"""
-        pk = force_text(urlsafe_base64_decode( kwargs.get('uidb64')))
+        pk = force_text(urlsafe_base64_decode(kwargs.get('uidb64')))
         token = kwargs.get('token')
         user = get_object_or_404(User, pk=pk)
         if account_activation_token.check_token(user, token):
@@ -129,7 +138,54 @@ class ConfirmSignUpView(View):
             user.save()
             return render(request, self.template_name, {'error': False})
         else:
-            return render(request,self.template_name, {'error': True})
+            return render(request, self.template_name, {'error': True})
 
 
+class UserProfileFormView(FormView):
+    form_class = UserProfileForm
+    template_name = 'authentication/userprofile.html'
+    success_url = reverse_lazy('coins:home')
 
+    def form_valid(self, form):
+        temp_form = form.save(commit=False)
+        temp_form.user = self.request.user
+        temp_form.save()
+        messages.add_message(self.request, messages.SUCCESS,
+                             'Success!. Profile Updated')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR,
+                             'Error. Please recheck form')
+
+        return self.render_to_response(self.get_context_data(form=form))
+
+
+class UserProfileView(DetailView):
+    model = UserProfile
+    context_object_name = 'userprofile'
+    template_name = 'authentication/user_profile_view.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            self.object = self.request.user.userprofile
+        except:
+            return redirect('auth:userprofile')
+
+        self.get_object()
+        return super(UserProfileView, self).get(request, *args, **kwargs)
+
+    def get_object(self):
+        return self.request.user.userprofile
+
+
+class UserProfileUpdate(UpdateView):
+    model = UserProfile
+    fields = ('address_line_1', 'address_line_2', 'address_line_3',
+              'landmark', 'city', 'state', 'country', 'pincode')
+
+    template_name = 'authentication/userprofile.html'
+    success_url = reverse_lazy('auth:userprofileview')
+
+    def get_object(self):
+        return self.request.user.userprofile

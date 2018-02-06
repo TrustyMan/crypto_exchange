@@ -1,10 +1,11 @@
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
 from .users import UserModel
 from .users import UsernameField
-
+from .models import UserProfile
 User = UserModel()
 
 
@@ -42,3 +43,9 @@ class RegistrationForm(UserCreationForm):
 class ResendActivationForm(forms.Form):
     required_css_class = 'required'
     email = forms.EmailField(label=_("E-mail"))
+
+
+class UserProfileForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('address_line_1','address_line_2','address_line_3','landmark','city','state', 'country', 'pincode')

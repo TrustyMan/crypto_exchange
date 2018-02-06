@@ -23,7 +23,7 @@
 				<div class="col-sm-6 offset-sm-3">
 					<div class="form-group bottommargin_0">
 						<input type="text" aria-required="true" size="30" value="" name="first_name" id="id_first_name" class="form-control signup-input"
-						    placeholder="First Name">
+						    placeholder="First Name" {% if form.name.value != None %}value="{{ form.name.value|stringformat:'s' }}"{% endif %}>
 						<span>
 							<p> {{ form.errors.first_name }}</p>
 						</span>

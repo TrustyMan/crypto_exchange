@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% load static %} {% block carousel%}
+    <div class="container">
+        <div class="row p-5">
+
+            <div class="col-12 col-md-8 offset-md-2 row profiledetail bg-lightgreyblue">
+                <div class="col-6 text-right">
+                    <span class="">address line 1 : </span>
+                </div>
+                <div class="col-6 text-left">
+                    <span class="profiledetail-font">{{userprofile.address_line_1}} </span>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 offset-md-2 row profiledetail">
+                <div class="col-6 text-right">
+                    <span class="">address line 2 : </span>
+                </div>
+                <div class="col-6 text-left">
+                    <span class="profiledetail-font">{{userprofile.address_line_2}} </span>
+                </div>
+            </div>
+           
+            <div class="col-12 col-md-8 offset-md-2 row profiledetail bg-lightgreyblue">
+                <div class="col-6 text-right">
+                    <span class="">address line 3 : </span>
+                </div>
+                <div class="col-6 text-left">
+                    <span class="profiledetail-font">{{userprofile.address_line_3}} </span>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 offset-md-2 row profiledetail">
+                <div class="col-6 text-right">
+                    <span class="">landmark : </span>
+                </div>
+                <div class="col-6 text-left">
+                    <span class="profiledetail-font">{{userprofile.landmark}} </span>
+                </div>
+            </div>
+           
+            <div class="col-12 col-md-8 offset-md-2 row profiledetail bg-lightgreyblue">
+                <div class="col-6 text-right">
+                    <span class="">city : </span>
+                </div>
+                <div class="col-6 text-left">
+                    <span class="profiledetail-font">{{userprofile.city}} </span>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 offset-md-2 row profiledetail">
+                <div class="col-6 text-right">
+                    <span class="">State : </span>
+                </div>
+                <div class="col-6 text-left">
+                    <span class="profiledetail-font">{{userprofile.state}} </span>
+                </div>
+            </div>
+           
+            <div class="col-12 col-md-8 offset-md-2 row profiledetail bg-lightgreyblue">
+                <div class="col-6 text-right">
+                    <span class="">Country : </span>
+                </div>
+                <div class="col-6 text-left">
+                    <span class="profiledetail-font">{{userprofile.country}} </span>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 offset-md-2 row profiledetail">
+                <div class="col-6 text-right">
+                    <span class="">pincode : </span>
+                </div>
+                <div class="col-6 text-left">
+                    <span class="profiledetail-font">{{userprofile.pincode}} </span>
+                </div>
+            </div>
+            
+            <div class="col-12 text-center">
+                <a href="{% url 'auth:userprofileupdate' %}" class="btn btn-info"><i class="fa fa-edit"> </i>  Edit</a>
+            </div>
+
+        </div>
+    </div>
+    {% endblock %}

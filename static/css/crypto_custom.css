@@ -33,8 +33,11 @@
 
 body {
     font-family: "Source Sans Pro";
-    color: rgb(150, 150, 150);
+    color: #ededed;
     font-stretch: semi-condensed;
+}
+.font-dark{
+color: #333333;
 }
 
 a {
@@ -280,16 +283,19 @@ select:-moz-focusring {}
 
 .exchange-input {
     height: 75px;
-    border: 1px solid #1783ab;;
+    border: 1px solid #1783ab;
+    ;
     border-radius: 40px;
 }
 
 .exchange-border-left {
-    border-left: 1px solid #1783ab;;
+    border-left: 1px solid #1783ab;
+    ;
 }
 
 .exchange-amount {
-    color: #1783ab;;
+    color: #1783ab;
+    ;
     font-size: 60pt;
     font-weight: 600;
 }
@@ -297,7 +303,8 @@ select:-moz-focusring {}
 .exchange-next {
     width: 150px;
     border-radius: 25px;
-    background: #1783ab;;
+    background: #1783ab;
+    ;
     border: none;
     height: 50px;
 }
@@ -532,6 +539,7 @@ select:-moz-focusring {}
     font-size: 16pt;
     width: 70px;
 }
+
 .logo-font {
     font-size: 40px;
     font-weight: 600;
@@ -578,5 +586,23 @@ select:-moz-focusring {}
     height: 80px;
 }
 
-
 /****************forms****************/
+
+.profiledetail {
+    height: 45px;
+    padding: 10px;
+}
+
+.bg-lightgreyblue {
+    background-color: #d5e1ed;
+}
+.profiledetail-font{
+    font-size: 16px;
+    color: #333333;
+}
+.profile-input{
+    height: 50px;
+}
+.font-darkgrey{
+    color: #484848;
+}
