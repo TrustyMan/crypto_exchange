@@ -32,6 +32,7 @@ class RegistrationView(FormView):
     template_name = 'authentication/signup.html'
 
     def form_valid(self, form):
+        import pdb; pdb.set_trace()
         new_user = form.save()
         if new_user:
             new_user.is_active = False
@@ -53,6 +54,9 @@ class RegistrationView(FormView):
             return render_to_response('authentication/success.html')
         else:
             return redirect(reverse('signup'))
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
 
 class TwoFactorAuthenticationView(TemplateView):
     """
@@ -195,3 +199,6 @@ class WelcomeView(View):
             return redirect(reverse('auth:otp'))
         else:
             return render(request,self.template_name)
+
+class AboutView(TemplateView):
+    template_name = 'aboutus.html'
