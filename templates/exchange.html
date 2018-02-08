@@ -1,4 +1,11 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %}
+
+{% block style %}
+
+<link rel="stylesheet" href="{% static 'css/piechart.css' %}">
+{% endblock %}
+
+{% block content %}
 
 
 
@@ -188,6 +195,7 @@
 
 
 {% endblock %} {% block script %}
+<script src="{% static 'js/piechart.js' %}"></script>
 <script type="text/javascript">
 	convertWidget1($('#convert_to').find("li.selected").val());
 	$('#convert_from li').click(function (e) {

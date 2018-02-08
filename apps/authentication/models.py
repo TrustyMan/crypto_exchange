@@ -9,7 +9,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=200, blank=True, default="")
     last_name = models.CharField(max_length=200, blank=True, default="")
     phone_number = models.CharField(max_length=20, blank=True, default="")
-    two_factor_status = models.BooleanField(default=False)
+    two_factor_status = models.BooleanField()
 
 
 class UserProfile(models.Model):
