@@ -188,6 +188,32 @@ class UserProfileUpdate(UpdateView):
     template_name = 'authentication/userprofile.html'
     success_url = reverse_lazy('auth:userprofileview')
 
+class UserProfileView(DetailView):
+    model = UserProfile
+    context_object_name = 'userprofile'
+    template_name = 'authentication/user_profile_view.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            self.object = self.request.user.userprofile
+        except:
+            return redirect('auth:userprofile')
+
+        self.get_object()
+        return super(UserProfileView, self).get(request, *args, **kwargs)
+
+    def get_object(self):
+        return self.request.user.userprofile
+
+
+class UserProfileUpdate(UpdateView):
+    model = UserProfile
+    fields = ('address_line_1', 'address_line_2', 'address_line_3',
+              'landmark', 'city', 'state', 'country', 'pincode')
+
+    template_name = 'authentication/userprofile.html'
+    success_url = reverse_lazy('auth:userprofileview')
+
     def get_object(self):
         return self.request.user.userprofile
 

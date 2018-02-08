@@ -35,10 +35,7 @@
     </div>
     <div class="white-font bg-blue p-3 d-md-flex justify-content-around">
         <div class="col-md-3  ">
-            <a href="{% url 'coins:home' %}">
-                <span class="logo-font d-flex align-items-center">
-                    <img src="{% static 'images/theme/Logo.png' %}" class=" logo img-fluid"> &nbsp; Psalm</span>
-            </a>
+           <a href="{% url 'coins:home' %}"> <span class="logo-font d-flex align-items-center"><img src="{% static 'images/theme/Logo.png' %}" class=" logo img-fluid"> &nbsp; Psalm</span></a>
         </div>
         <div class="col-md-3 d-flex flex-row justify-content-around">
             {% if user.is_authenticated %}
