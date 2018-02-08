@@ -55,8 +55,6 @@ class RegistrationView(FormView):
         else:
             return redirect(reverse('signup'))
 
-    def form_invalid(self, form):
-        return self.render_to_response(self.get_context_data(form=form))
 
 class TwoFactorAuthenticationView(TemplateView):
     """

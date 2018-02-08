@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import reverse, reverse_lazy
 from apps.authentication.views import RegistrationView, ConfirmSignUpView, TwoFactorAuthenticationView
 from apps.authentication.views import (RegistrationView, ConfirmSignUpView, UserProfileFormView,
-                                       UserProfileView, UserProfileUpdate, AboutView)
+                                       UserProfileView, UserProfileUpdate, AboutView, WelcomeView)
 app_name = 'auth'
 urlpatterns = [
     path('signup/', RegistrationView.as_view(), name='signup'),
